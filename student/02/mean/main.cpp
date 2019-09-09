@@ -17,7 +17,7 @@ int main()
     for (int b=1;b<=a;b=b+1){
         std::cout << "Input ";
         std::cout << b;
-        std::cout <<". number:";
+        std::cout <<". number: ";
         std::cin >> value;
         total=total + value;
         
