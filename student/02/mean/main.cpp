@@ -5,7 +5,7 @@
 int main()
 {
     int a;
-    int total = 0;
+    double total = 0;
     int value;
     std::cout << "From how many integer numbers you want to count the mean value? ";
     std::cin >>a;
