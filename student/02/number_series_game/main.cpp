@@ -4,19 +4,20 @@
 int main()
 {
     int n;
-    int counter;
-    counter=1;
     std::cout << "How many numbers would you like to have? ";
     std::cin >> n;
-    while(n>=counter){
-        if (counter%3==0){
-            std::cout << "zip" << std::endl;
-            counter = counter +1;
-
+    for(int a=1; a<=n; a=a+1){
+        if (a%3==0){
+            if (a%7==0){
+                std::cout << "zip boing" << std::endl;
+            }else{
+                std::cout << "zip" << std::endl;
+            }
+        }else if (a%7==0){
+            std::cout << "boing" << std::endl;
+        }else{
+            std::cout << a << std::endl;
         }
-        std::cout << counter << std::endl;
-        counter = counter +1;
-
     }
 
 }
