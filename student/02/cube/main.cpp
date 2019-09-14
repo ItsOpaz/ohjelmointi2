@@ -10,9 +10,6 @@ int main()
     std::cin >> value;
     result = pow(value,3);
     check = pow(result,(float)1/3);
-    std::cout << value;
-    std::cout << result;
-    std::cout << check;
     if (result<0){
         std::cout <<"Error! The cube of ";
         std::cout <<value;
