@@ -7,14 +7,14 @@ bool check(int all_b,int drawn_b){
         cout << "The number of balls must be a positive number.";
         return false;
     }else if(drawn_b > all_b){
-        cout << "The number of balls must be a positive number.";
+        cout << "The maximum number of drawn balls is the total amount of balls.";
         return false;
     }else{
         return true;
     }
 }
 
-int factorial(int value){
+unsigned long int factorial(int value){
     unsigned long int factorial = 1;
     for(int i = 1; i <=value; ++i)
         {
@@ -23,10 +23,9 @@ int factorial(int value){
     return factorial;
 }
 
-int propability(int all_b, int drawn_b){
-    int divider;
-    int difference = all_b - drawn_b;
-    divider = factorial(all_b)/(factorial(difference)*factorial(drawn_b));
+unsigned long int propability(int all_b, int drawn_b){
+    unsigned long int divider;
+    divider = factorial(all_b)/(factorial(all_b-drawn_b)*factorial(drawn_b));
     return divider;
 }
 
