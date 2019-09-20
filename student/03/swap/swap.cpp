@@ -6,4 +6,5 @@ int swap(int& i, int& j) {
     int a = i;
     i=j;
     j=a;
+    return 0;
 }
