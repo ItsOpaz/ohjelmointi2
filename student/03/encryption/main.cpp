@@ -36,15 +36,15 @@ int main()
         string encrypt;
         cout << "Enter the text to be encrypted: ";
         cin >> encrypt;
-        for (int i=1; i < 26; i++){
+        for (int i=0; i < 26; i++){
             if (isupper(encrypt.at(i))){
                 cout << "Error! The encryption key must contain only lower case characters."<< endl;
                 return EXIT_FAILURE;
             }
         }
         int a = encrypt.length();
-        for (int i=1; i < a;++i ){
-            for (int j=1; j < 26 ;++j ){
+        for (int i=0; i < a;++i ){
+            for (int j=0; j < 26 ;++j ){
                 if (encrypt[i]==base[j]){
                     encrypt[i]=line[j];
                 }
