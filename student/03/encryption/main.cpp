@@ -21,14 +21,11 @@ int main()
         int j;
         int count[26] = {0};
 
-        for(j=0;line[j]!='\0';j++)
-        {
+        for(j=0;line[j]!='\0';j++){
         count[line[j]-'a']++;
         }
-        for(j=0;j<26;j++)
-        {
-            if(!count[j])
-            {
+        for(j=0;j<26;j++){
+            if(!count[j]){
                 cout << "Error! The encryption key must contain all alphabets a-z." << endl;
                 return EXIT_FAILURE;
             }
@@ -42,16 +39,15 @@ int main()
                 return EXIT_FAILURE;
             }
         }
-        int a = encrypt.length();
-        for (int i=0; i < a;++i ){
-            for (int j=0; j < 26 ;++j ){
-                if (encrypt[i]==base[j]){
-                    encrypt[i]=line[j];
+        int input_length;
+        input_length = encrypt.length();
+        int index;
+        string crypted_text = encrypt;
+        for (int i=0; i < input_length-1 ;++i ){
+            index = base.find(encrypt.at(i));
+            crypted_text.at(i) = line.at(index);
                 }
-            }
-
-        }
-        cout << "Encrypted text: " << encrypt << endl;
+        cout << "Encrypted text: " << crypted_text << endl;
 
     }else{
         cout << "Error! The encryption key must contain 26 characters."<< endl;
