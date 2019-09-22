@@ -35,7 +35,7 @@ int main()
         }
 
         std::cout << std::endl;
-        std::cout << "Scoreboard after turn kulli" << turn << ":" << std::endl;
+        std::cout << "Scoreboard after turn " << turn << ":" << std::endl;
         std::cout << player1.get_name() << ": " << player1.get_points() << "p" << std::endl;
         std::cout << player2.get_name() << ": " << player2.get_points() << "p" << std::endl;
         std::cout << std::endl;
