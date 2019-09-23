@@ -53,10 +53,19 @@ bool is_arithmetic_series(std::vector <int>& ints){
 bool is_geometric_series(std::vector <int>& ints){
     bool geometric = true;
     int size = ints.size();
-    int quotient = (ints.at(1)/ints.at(2));
+    int a = ints.at(0);
+    int b = ints.at(1);
+    double quotient = b/a;
     for (int i=0;i<size-1;++i){
-        if ((ints.at(i)/ints.at(i+1))!=quotient){
+        int a = ints.at(i);
+        int b = ints.at(i+1);
+        double c = b/a;
+        if (b==0){
             geometric = false;
+        }else{
+
+            }if (c!=quotient){
+                geometric = false;
         }
     }
     return geometric;
