@@ -42,7 +42,7 @@ bool is_arithmetic_series(std::vector <int>& ints){
     bool arithmetic = true;
     int size = ints.size();
     int difference = (ints.at(1)-ints.at(2));
-    for (int i=1;i<size-1;++i){
+    for (int i=0;i<size-1;++i){
         if ((ints.at(i)-ints.at(i+1))!=difference){
             arithmetic = false;
         }
@@ -54,7 +54,7 @@ bool is_geometric_series(std::vector <int>& ints){
     bool geometric = true;
     int size = ints.size();
     int quotient = (ints.at(1)/ints.at(2));
-    for (int i=1;i<size-1;++i){
+    for (int i=0;i<size-1;++i){
         if ((ints.at(i)/ints.at(i+1))!=quotient){
             geometric = false;
         }
