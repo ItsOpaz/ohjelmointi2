@@ -20,7 +20,7 @@ std::vector<std::string> split(std::string str, char token, bool truth=false){
         }
     }
     if(truth == true){
-        int b = result.size()-1;
+        int b = result.size()-2;
         for (int i=0;i<b;++i){
             if (result.at(i)==""){
                 result.erase(result.begin()+i);
