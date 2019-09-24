@@ -19,14 +19,17 @@ std::vector<std::string> split(std::string str, char token, bool truth=false){
             str = "";
         }
     }
-    if(truth == true){
-        int b = result.size()-3;
-        for (int i=0;i<b;++i){
-            if (result.at(i)==""){
-                result.erase(result.begin()+i);
-           }
+    if(truth){
+        int b = (result.size()-1);
+        std::vector <std::string> withoutspaces;
+        for(int i=0; i<b; ++i){
+            std::string word = result.at(i);
+            if(word == ""){
+            }else{
+                withoutspaces.push_back(result.at(i));
+            }
         }
-        return result;
+        return withoutspaces;
     }
     return result;
 }
