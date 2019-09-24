@@ -14,10 +14,19 @@ std::vector<std::string> split(std::string str, char token, bool truth=false){
             result.push_back(str.substr(0,index));
             str = str.substr(index+1);
             if(str.size()==0)result.push_back(str);
-        }else if(truth==false){
+        }else{
             result.push_back(str);
             str = "";
         }
+    }
+    if(truth == true){
+        int b = result.size()-3;
+        for (int i=0;i<b;++i){
+            if (result.at(i)==""){
+                result.erase(result.begin()+i);
+           }
+        }
+        return result;
     }
     return result;
 }
