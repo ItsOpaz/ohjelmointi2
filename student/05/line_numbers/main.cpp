@@ -22,6 +22,7 @@ int main()
             int i = 1;
                     while ( getline(tiedosto_in, rivi) ) {
                         tiedosto_out << i << " " << rivi << endl;
+                        ++i;
                     }
                     tiedosto_in.close();
                     tiedosto_out.close();
