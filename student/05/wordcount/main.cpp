@@ -73,9 +73,9 @@ int main()
             }
         }
         std::stringstream result;
-        std::copy(rows.begin(), rows.end(), std::ostream_iterator<int>(result, " "));
+        std::copy(rows.begin(), rows.end(), std::ostream_iterator<int>(result, ", "));
         std::string s = result.str();
-            s = s.substr(0, s.length()-1);
-        std::cout << elem << rows.size() << s;
+            s = s.substr(0, s.length()-2);
+        std::cout << elem << rows.size() << s <<std::endl;
     }
 }
