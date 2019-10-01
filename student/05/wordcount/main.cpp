@@ -1,81 +1,73 @@
 #include <iostream>
 #include <map>
-#include <vector>
 #include <string>
 #include <fstream>
 #include <algorithm>
-#include <ostream>
-#include <sstream>
-#include <iterator>
+#include <bits/stdc++.h>
+#include <set>
 
-std::vector<std::string> split(std::string str){
-    std::vector<std::string>result;
-    while(str.size()){
-        unsigned long int index = str.find(" ");
-        unsigned long int a = std::string::npos;
-        if(index!= a){
-            result.push_back(str.substr(0,index));
-            str = str.substr(index+1);
-            if(str.size()==0)result.push_back(str);
-        }else{
-            result.push_back(str);
-            str = "";
+std::vector<std::string> split(std::string str, char separator = ' ')
+{
+    std::string result_part;
+    std::string& part = result_part;
+    std::vector<std::string> result;
+    std::string empty = "";
+    std::vector<int>::size_type  size = str.size();
+    size = str.size();
+    for (std::string::size_type i=0; i <= size-1; ++i)  {
+        if (str.at(i) == separator){
+            result.push_back(part);
+            part.clear();
+            continue;
         }
-    }
-        int b = (result.size());
-        std::vector <std::string> withoutspaces;
-        for(int i=0; i<b; ++i){
-            std::string word = result.at(i);
-            if(word == ""){
-            }else{
-                withoutspaces.push_back(result.at(i));
+        else if (str.at(i) != separator){
+            part+=(str.at(i));
+            if (i==size-1)
+                result.push_back(part);
             }
-        }
-        return withoutspaces;
+    }
+    return result;
 }
+
+
+
 int main()
 {
-    std::string inp;
     std::cout << "Input file: ";
-    std::cin >> inp;
-    std::ifstream file(inp);
-    if ( not file ) {
-        std::cout << "Error! The file " << inp << " cannot be opened." << std::endl;
+    std::string input_file;
+    std::getline(std::cin, input_file);
+    std::ifstream input(input_file);
+    if (!input){
+        std::cout << "Error! The file " << input_file << " cannot be opened." << std::endl;
         return EXIT_FAILURE;
     }
-    int i = 1;
-    std::map<int, std::vector<std::string>> lines;
-    std::vector<std::string> a;
-    std::vector<std::string> words;
+    std::map<std::string, std::vector<int>> word_at_rows;
+    std::vector<std::string> words_in_row;
     std::string row;
-    while (getline(file, row)){
-        std::vector<std::string> line_as_vector = split(row);
-        lines.insert({i,line_as_vector});
-        ++i;
-        a.insert(std::end(a), std::begin(line_as_vector), std::end(line_as_vector));
-    }
-    for (std::string elem:a){
-        if (std::find(words.begin(), words.end(), elem) != words.end() ){
-            continue;
-        }else{
-            words.push_back(elem);
-            std::sort(words.begin(), words.end());
-        }
-    }
-    for (std::string elem : words){
-        std::vector<int> rows;
-        for (auto line : lines){
-            std::vector<std::string> verse = line.second;
-            if (std::find(verse.begin(), verse.end(), elem) != verse.end()){
-                continue;
+    int rivi = 0;
+    while (getline(input, row)){
+        ++rivi;
+        words_in_row = split(row);
+        for (std::string word : words_in_row){
+            if (word_at_rows.find(word) != word_at_rows.end()){
+                if (find(word_at_rows.at(word).begin(), word_at_rows.at(word).end(), rivi) == word_at_rows.at(word).end()){
+                    word_at_rows.at(word).push_back(rivi);
+                }
             }else{
-                rows.push_back(line.first);
+                word_at_rows.insert({word, {rivi}});
             }
         }
-        std::stringstream result;
-        std::copy(rows.begin(), rows.end(), std::ostream_iterator<int>(result, ", "));
-        std::string s = result.str();
-            s = s.substr(0, s.length()-2);
-        std::cout << elem << rows.size() << s <<std::endl;
     }
+    std::map<std::string, std::vector<int>>::iterator iter = word_at_rows.begin();
+    while (iter != word_at_rows.end()){
+        std::cout << iter->first << " " << iter->second.size() << ": ";
+        std::cout << iter->second.at(0);
+        iter->second.erase(iter->second.begin());
+        for (int row_num : iter->second){
+            std::cout << ", " << row_num;
+        }
+        std::cout << std::endl;
+        ++iter;
+    }
+
 }
