@@ -33,7 +33,6 @@ void network_depth(std::map<std::string, std::vector<std::string>> network, std:
     for (std::string name : network.at(id)){
         ++ counter;
         if (!network.at(name).empty()){
-            ++ counter;
             network_depth(network, name, depth, counter);
             --counter;
         }
