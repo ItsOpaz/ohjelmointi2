@@ -12,12 +12,17 @@ bool palindrome_recursive(std::string s)
 
 
   // Add your implementation here
-  if (s == std::string(s.rbegin(), s.rend())){
-      return true;
+          int pituus = s.length();
+    if (pituus<=1){
+    return true;
   }
-  else{
+    else if (s.front()==s.back()){
+      palindrome_recursive(s.substr(1, s.length()-2));
+  }
+    else{
       return false;
   }
+  return true;
 }
 
 // Do not modify rest of the code, or the automated testing won't work.
