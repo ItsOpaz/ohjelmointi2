@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
+#include <cstring>
 #ifndef RECURSIVE_FUNC
 #define RECURSIVE_FUNC
 #endif
@@ -8,20 +10,23 @@ bool palindrome_recursive(std::string s)
 {
   RECURSIVE_FUNC
   // Do not remove RECURSIVE_FUNC declaration, it's necessary for automatic testing to work
-  // ------------
-
-
-  // Add your implementation here
-    if (s.length()<=1){
+    int length = s.length();
+    char end = s.back();
+    char first = s.front();
+    if (length <= 1){
+      return true;
+    }
+    else if (length == 2 && end == first){
+        return true;
+    }else{
+        if (end == first){
+            return palindrome_recursive(s.substr(1, length-2));
+        }
+        else if (end != first){
+            return false;
+        }
+    }
     return true;
-  }
-    else if (s.front()==s.back()){
-      palindrome_recursive(s.substr(1, s.length()-2));
-  }
-    else{
-      return false;
-  }
-  return true;
 }
 
 // Do not modify rest of the code, or the automated testing won't work.
