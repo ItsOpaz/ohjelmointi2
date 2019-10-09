@@ -64,9 +64,15 @@ void print_network(std::map<std::string, std::vector<std::string>> network, std:
     for (std::string name : network.at(id)){
         std::cout << dots << name << std::endl;
         if (!network.at(name).empty()){
-            dots += ".." ;
-            print_network(network, name, dots);
-            dots = dots.substr(0, dots.length()-2);
+            if(network.at(name).size()==1){
+                dots += ".." ;
+                print_network(network, name, dots);
+                dots = dots.substr(0, dots.length()-2);
+            }
+            else{
+                print_network(network, name, dots);
+                dots = dots.substr(0, dots.length()-2);
+            }
         }
         else{
             dots = "..";
@@ -137,7 +143,7 @@ int main()
             std::string id = parts.at(1);
             int depth = 0;
             network_depth(network, id, depth);
-            std::cout << depth << std::endl;
+            std::cout << depth+1 << std::endl;
 
             // TODO: Implement the command here!
 
