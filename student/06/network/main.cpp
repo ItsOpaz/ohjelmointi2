@@ -63,18 +63,13 @@ void calculate(std::map<std::string, std::vector<std::string>> network, std::str
 void print_network(std::map<std::string, std::vector<std::string>> network, std::string id, std::string dots){
     for (std::string name : network.at(id)){
         std::cout << dots << name << std::endl;
+        std::cout << network.at(name).size() << std::endl;
         if (!network.at(name).empty()){
-            if(network.at(name).size()==1){
-                dots += ".." ;
-                print_network(network, name, dots);
-                dots = dots.substr(0, dots.length()-2);
-            }
-            else{
-                print_network(network, name, dots);
-                dots = dots.substr(0, dots.length()-2);
-            }
+            dots += ".." ;
+            print_network(network, name, dots);
+            dots = dots.substr(0, dots.length()-2);
         }
-        else{
+        else if(network.at(name).empty()){
             dots = "..";
         }
 
