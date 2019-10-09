@@ -12,8 +12,7 @@ bool palindrome_recursive(std::string s)
 
 
   // Add your implementation here
-          int pituus = s.length();
-    if (pituus<=1){
+    if (s.length()<=1){
     return true;
   }
     else if (s.front()==s.back()){
