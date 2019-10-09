@@ -68,7 +68,7 @@ void print_network(std::map<std::string, std::vector<std::string>> network, std:
             print_network(network, name, dots);
             dots = dots.substr(0, dots.length()-2);
         }
-        else if(network.at(name).empty()){
+        else if(network.at(id).size() <= 1){
             dots = "..";
         }
 
