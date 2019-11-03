@@ -1,4 +1,5 @@
 #include "array_operations.hh"
+#define ARRAY_OPERATIONS_HH
 
 void reverse(int* leftptr, int* rightptr){
     int tmp;
