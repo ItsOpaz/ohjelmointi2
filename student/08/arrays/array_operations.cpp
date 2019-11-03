@@ -34,7 +34,7 @@ int greatest_v2(int* itemptr, int* endptr){
 
 int greatest_v1(int* itemptr, int size){
     int greatest = *itemptr;
-    for (int i; i < size; ++i){
+    for (int i=0; i < size; ++i){
         if (greatest < *itemptr){
             greatest = *itemptr;
         }
