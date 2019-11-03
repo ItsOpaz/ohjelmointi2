@@ -74,7 +74,7 @@ void print_data(const Student s) {
 bool is_valid_phone_number(const std::string number) {
     for(unsigned int i = 0; i < number.length(); ++i) {
         if(!(('0' <= number[i] && number[i] <= '9') || number[i] == ' ' || number[i] == '-')) {
-            std::cout << "Erroneuous phone number: " << number << std::endl << std::endl;
+            std::cout << "Erroneous phone number: " << number << std::endl << std::endl;
             return false;
         }
     }
@@ -89,7 +89,7 @@ bool change_number(std::map<std::string, Student*> reg, std::string id){
     std::string number = "";
     std::cout << "Enter a new phone number: ";
     std::getline(std::cin, number);
-    std::cout << std::endl;  //tyhjä rivi kuten mallissa
+    std::cout << std::endl;
 
     if(!is_valid_phone_number(number)){
         return false;
