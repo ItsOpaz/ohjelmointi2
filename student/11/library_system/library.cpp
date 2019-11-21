@@ -172,7 +172,7 @@ void Library::loan(const std::string &book_title, const std::string &borrower_id
         Date* date = new Date(today_->getDay(), today_->getMonth(), today_->getYear());
         date->advance_by_loan_length();
         Loan* n_loan = new Loan(books_.at(book_title), accounts_.at(borrower_id), date);
-        if(loans_.count(borrower)==0){
+        if(loans_.count(borrower_id)==0){
             loans_.insert({borrower_id, n_loan});
         }else{
 
@@ -190,8 +190,13 @@ void Library::renew_loan(const std::string &book_title){
     for ( it = loans_.begin(); it != loans_.end(); it++ )
     {
         if (it->second->get_book()==book_title){
-            std::cout << ALREADY_LOANED_ERROR << std::endl;
-            return;
+            if (it->second->renew()){
+                std::cout << RENEWAL_SUCCESSFUL << std::endl;
+                return;
+            }else{
+                std::cout << OUT_OF_RENEWALS_ERROR << std::endl;
+                return;
+            }
         }else{
             continue;
         }

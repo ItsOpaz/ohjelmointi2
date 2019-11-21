@@ -20,7 +20,8 @@ class Loan
 public:
     Loan(Book* book,
          Person* borrower,
-         Date* date
+         Date* date,
+         int renew_count = 0
     );
     ~Loan();
     
@@ -36,10 +37,14 @@ public:
     //return true if loan is late
     bool is_late(Date* today) const;
 
+    //renew loan
+    bool renew();
+
 private:
     Book* book_;
     Person* borrower_;
     Date* date_;
+    int renew_count_;
 };
 
 #endif // LOAN_HH

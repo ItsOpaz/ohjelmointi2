@@ -181,13 +181,13 @@ int Cli::checkCommandType()
 
 bool Cli::is_numeric(std::string s, bool zero_allowed)
 {
-    for(unsigned int i = 0; i < s.length(); ++i)
-    {
-        if(not isdigit(s.at(i)))
+    if(not zero_allowed and s.length() == 1 and s.at(0) == '0')
         {
             return false;
         }
-        if(not zero_allowed and s.at(i) == '0')
+    for(unsigned int i = 0; i < s.length(); ++i)
+    {
+        if(not isdigit(s.at(i)))
         {
             return false;
         }

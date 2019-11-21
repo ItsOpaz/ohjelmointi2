@@ -3,10 +3,12 @@
 
 Loan::Loan(Book* book,
            Person* borrower,
-           Date* date):
+           Date* date,
+           int renew_count):
     book_(book),
     borrower_(borrower),
-    date_(date)
+    date_(date),
+    renew_count_(renew_count)
 {
 
 }
@@ -29,5 +31,15 @@ std::string Loan::get_due() const{
 }
 
 bool Loan::is_late(Date* today) const{
-    return date_>today;
+    return date_<today;
+}
+
+bool Loan::renew(){
+    if(renew_count_ >= DEFAULT_RENEWAL_AMOUNT){
+        return false;
+    }else{
+        date_->advance_by_loan_length();
+        renew_count_ += 1;
+        return true;
+    }
 }
