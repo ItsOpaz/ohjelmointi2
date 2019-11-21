@@ -32,7 +32,7 @@ std::string Loan::get_due() const{
 }
 
 bool Loan::is_late(Date* today) const{
-    return date_<today;
+    return *date_<*today;
 }
 
 bool Loan::renew(){
