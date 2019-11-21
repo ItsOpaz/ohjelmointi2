@@ -110,12 +110,25 @@ void Library::advance_date(int days)
 
 void Library::loaned_books()
 {
+    std::cout << "Book title : Borrower : Due date : Is late" << std::endl;
+    for(long unsigned int i=0; i <= loans_.size()-1; ++i){
+        std::cout << loans_.at(i)->get_book() << " : " <<
+                     loans_.at(i)->get_borrower() << " : " <<
+                     loans_.at(i)->get_due() << " : " <<
+                     loans_.at(i)->is_late(today_) << std::endl;
+    }
 
 }
 
 void Library::loans_by(const std::string &borrower)
 {
-
+    for(long unsigned int i=0; i <= loans_.size()-1; ++i){
+        if (loans_.at(i)->get_borrower()==borrower){
+            std::cout <<loans_.at(i)->get_book() << " : " <<
+                        loans_.at(i)->get_due() << " : " <<
+                        loans_.at(i)->is_late(today_) << std::endl;
+        }
+    }
 }
 
 void Library::loan(const std::string &book_title, const std::string &borrower_id)
@@ -157,8 +170,8 @@ bool Library::valid_person(const std::string &borrower)
 
 bool Library::is_loaned(const std::string &book_title)
 {
-    for(long unsigned int i=0; i < loans_.size(); ++i){
-        if(loans_[i]->get_book()==book_title){
+    for(long unsigned int i=0; i <= loans_.size()-1; ++i){
+        if(loans_.at(i)->get_book()==book_title){
             return true;
         }else{
             continue;

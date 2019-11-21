@@ -39,6 +39,7 @@ public:
     //renew loan
     bool renew();
 
+
 private:
     Book* book_;
     Person* borrower_;
