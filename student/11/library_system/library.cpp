@@ -136,10 +136,10 @@ void Library::loans_by(const std::string &borrower)
 
 void Library::loan(const std::string &book_title, const std::string &borrower_id)
 {
-    if(!valid_book(book_title)){
-        std::cout <<CANT_FIND_BOOK_ERROR <<std::endl;
-    }else if(!valid_person(borrower_id)){
+    if(!valid_person(borrower_id)){
         std::cout <<CANT_FIND_ACCOUNT_ERROR <<std::endl;
+    }else if(!valid_book(book_title)){
+        std::cout <<CANT_FIND_BOOK_ERROR <<std::endl;
     }else if (is_loaned(book_title)){
         std::cout <<ALREADY_LOANED_ERROR <<std::endl;
     }else{
@@ -152,7 +152,9 @@ void Library::loan(const std::string &book_title, const std::string &borrower_id
 
 void Library::renew_loan(const std::string &book_title)
 {
-    if (!is_loaned(book_title)){
+    if(!valid_book(book_title)){
+        std::cout <<CANT_FIND_BOOK_ERROR <<std::endl;
+    }else if (!is_loaned(book_title)){
         std::cout <<LOAN_NOT_FOUND_ERROR <<std::endl;
     }else{
         for(Loan* loan : loans_){
@@ -169,7 +171,9 @@ void Library::renew_loan(const std::string &book_title)
 
 void Library::return_loan(const std::string &book_title)
 {
-    if (!is_loaned(book_title)){
+    if(!valid_book(book_title)){
+        std::cout <<CANT_FIND_BOOK_ERROR <<std::endl;
+    }else if (!is_loaned(book_title)){
         std::cout <<LOAN_NOT_FOUND_ERROR <<std::endl;
     }else{
         int i = 0;
@@ -190,18 +194,18 @@ void Library::return_loan(const std::string &book_title)
 bool Library::valid_book(const std::string &book_title)
 {
     if(books_.count(book_title)==0){
-        return true;
-    }else{
         return false;
+    }else{
+        return true;
     }
 }
 
 bool Library::valid_person(const std::string &borrower)
 {
     if(accounts_.count(borrower)==0){
-        return true;
-    }else{
         return false;
+    }else{
+        return true;
     }
 }
 
