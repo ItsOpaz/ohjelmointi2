@@ -20,7 +20,7 @@ class Loan
 public:
     Loan(Book* book,
          Person* borrower,
-         Date* date,
+         Date* date
     );
     ~Loan();
     

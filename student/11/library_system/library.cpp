@@ -136,3 +136,33 @@ void Library::return_loan(const std::string &book_title)
 {
 
 }
+
+bool Library::valid_book(const std::string &book_title)
+{
+    if(books_.count(book_title)==0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool Library::valid_person(const std::string &borrower)
+{
+    if(accounts_.count(borrower)==0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool Library::is_loaned(const std::string &book_title)
+{
+    for(long unsigned int i=0; i < loans_.size(); ++i){
+        if(loans_[i]->get_book()==book_title){
+            return true;
+        }else{
+            continue;
+        }
+    }
+    return false;
+}

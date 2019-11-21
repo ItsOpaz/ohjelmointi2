@@ -3,10 +3,10 @@
 
 Loan::Loan(Book* book,
            Person* borrower,
-           Date* today:
+           Date* today):
     book_(book),
     borrower_(borrower),
-    date_(new Date(date->getDay(),today->getMonth(),today->getYear())),
+    date_(new Date(today->getDay(),today->getMonth(),today->getYear())),
     renew_count_(DEFAULT_RENEWAL_AMOUNT)
 {
 

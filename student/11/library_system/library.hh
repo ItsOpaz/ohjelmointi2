@@ -95,6 +95,17 @@ public:
     // If any error happened, prints an appropriate error message.
     void return_loan(const std::string& book_title);
 
+    //check if book exists in library
+    bool valid_book(const std::string& book_title);
+
+    //check if person exists
+    bool valid_person(const std::string& borrower);
+
+    //check if book is loaned or not
+    bool is_loaned(const std::string& book_title);
+
+
+
 private:
     // Today's date.
     Date* today_;
@@ -106,7 +117,7 @@ private:
     std::map<std::string, Person*> accounts_;
 
     // Students may add things here and initialize them properly.
-    // All loans
+    // All existing loan class pointers
     std::vector<Loan*> loans_;
 
 };
