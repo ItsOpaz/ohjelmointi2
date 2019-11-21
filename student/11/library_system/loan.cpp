@@ -9,7 +9,7 @@ Loan::Loan(Book* book,
     date_(new Date(today->getDay(),today->getMonth(),today->getYear())),
     renew_count_(DEFAULT_RENEWAL_AMOUNT)
 {
-
+    date_->advance_by_loan_length();
 }
 
 Loan::~Loan()
@@ -36,11 +36,11 @@ bool Loan::is_late(Date* today) const{
 }
 
 bool Loan::renew(){
-    if(renew_count_ >= DEFAULT_RENEWAL_AMOUNT){
+    if(renew_count_ == 0){
         return false;
     }else{
         date_->advance_by_loan_length();
-        renew_count_ += 1;
+        --renew_count_;
         return true;
     }
 }
