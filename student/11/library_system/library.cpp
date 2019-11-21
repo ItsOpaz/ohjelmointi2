@@ -110,7 +110,7 @@ void Library::advance_date(int days)
 
 void Library::loaned_books()
 {
-    std::cout << "Book title : Borrower : Due date : Is late" << std::endl;
+    std::cout << LOAN_INFO << std::endl;
     for(long unsigned int i=0; i <= loans_.size()-1; ++i){
         std::cout << loans_.at(i)->get_book() << " : " <<
                      loans_.at(i)->get_borrower() << " : " <<
@@ -142,12 +142,41 @@ void Library::loan(const std::string &book_title, const std::string &borrower_id
 
 void Library::renew_loan(const std::string &book_title)
 {
-
+    if (!is_loaned(book_title)){
+        std::cout <<LOAN_NOT_FOUND_ERROR <<std::endl;
+        return;
+    }else{
+        for(long unsigned int i=0; i <= loans_.size()-1; ++i){
+            if(loans_.at(i)->get_book()==book_title){
+                if(loans_.at(i)->renew()){
+                    std::cout <<RENEWAL_SUCCESSFUL <<std::endl;
+                }else{
+                    std::cout <<OUT_OF_RENEWALS_ERROR <<std::endl;
+                }
+            }
+        }
+    }
 }
 
 void Library::return_loan(const std::string &book_title)
 {
-
+    if (!is_loaned(book_title)){
+        std::cout <<LOAN_NOT_FOUND_ERROR <<std::endl;
+        return;
+    }else{
+        int i = 0;
+        for(Loan* loan:loans_){
+            if(loan->get_book()==book_title){
+                Loan* returned = loan;
+                delete returned;
+                loans_.erase(loans_.begin()+i);
+                returned = nullptr;
+            }else{
+                ++i;
+            }
+        }
+        std::cout <<RETURN_SUCCESSFUL <<std::endl;
+    }
 }
 
 bool Library::valid_book(const std::string &book_title)
