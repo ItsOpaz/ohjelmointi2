@@ -21,7 +21,6 @@ public:
     Loan(Book* book,
          Person* borrower,
          Date* date,
-         int renew_count = 0
     );
     ~Loan();
     

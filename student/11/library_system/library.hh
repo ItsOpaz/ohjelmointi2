@@ -106,8 +106,8 @@ private:
     std::map<std::string, Person*> accounts_;
 
     // Students may add things here and initialize them properly.
-    // All loaned books.
-    std::map<std::string, Loan*> loans_;
+    // All loans
+    std::vector<Loan*> loans_;
 
 };
 
