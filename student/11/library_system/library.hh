@@ -3,12 +3,10 @@
  * Library system that can be used to look at books and borrower accounts.
  * Students should expand this system to handle book loaning as well.
  * ---------------
- *
- *
- * (Add your info ( name, email, student number) and a short
- * description / comment of your solution here.)
- *
- *
+ * Olli Pettersson, olli.pettersson@tuni.fi, 283651
+ * Allows user to make loans with borrower name and book title
+ * loans are saved to vector, which is used to print loans and find certain
+ * loans from system
  * ---------------
  * TIE-0220x S2019
  * */
