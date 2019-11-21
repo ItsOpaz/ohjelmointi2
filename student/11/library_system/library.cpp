@@ -125,11 +125,15 @@ void Library::loaned_books()
 
 void Library::loans_by(const std::string &borrower)
 {
-    for(Loan* loan : loans_){
-        if (loan->get_borrower()==borrower){
-            std::cout <<loan->get_book() << " : " <<
-                        loan->get_due() << " : " <<
-                        loan->is_late(today_) << std::endl;
+    if(!valid_person(borrower)){
+        std::cout <<CANT_FIND_ACCOUNT_ERROR <<std::endl;
+    }else{
+        for(Loan* loan : loans_){
+            if (loan->get_borrower()==borrower){
+                std::cout <<loan->get_book() << " : " <<
+                            loan->get_due() << " : " <<
+                            loan->is_late(today_) << std::endl;
+            }
         }
     }
 }
@@ -160,7 +164,7 @@ void Library::renew_loan(const std::string &book_title)
         for(Loan* loan : loans_){
             if(loan->get_book()==book_title){
                 if(loan->renew()){
-                    std::cout <<RENEWAL_SUCCESSFUL <<std::endl;
+                    std::cout <<RENEWAL_SUCCESSFUL << loan->get_due() <<std::endl;
                 }else{
                     std::cout <<OUT_OF_RENEWALS_ERROR <<std::endl;
                 }
