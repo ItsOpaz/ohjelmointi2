@@ -182,18 +182,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>findPushButton</sender>
-   <signal>pressed()</signal>
-   <receiver>textBrowser</receiver>
-   <slot>paste()</slot>
+   <sender>matchCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>findPushButton</receiver>
+   <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>379</x>
-     <y>97</y>
+     <x>76</x>
+     <y>154</y>
     </hint>
     <hint type="destinationlabel">
-     <x>65</x>
-     <y>246</y>
+     <x>355</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
