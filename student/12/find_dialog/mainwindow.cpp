@@ -17,17 +17,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_matchCheckBox_toggled(bool checked)
-{
-
-}
 
 void MainWindow::on_findPushButton_pressed()
 {
     QString file_input = ui->fileLineEdit->text();
     QString key = ui->keyLineEdit->text();
-    qDebug(qUtf8Printable(file_input));
-    qDebug(qUtf8Printable(key));
     QFile file(file_input);
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
             ui->textBrowser->setText("File not found");

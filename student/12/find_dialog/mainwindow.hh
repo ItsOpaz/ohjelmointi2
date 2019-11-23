@@ -17,8 +17,6 @@ public:
 
 private slots:
 
-    void on_matchCheckBox_toggled(bool checked);
-
     void on_findPushButton_pressed();
 
 private:
