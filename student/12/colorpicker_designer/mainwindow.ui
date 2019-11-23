@@ -24,12 +24,8 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="1">
-      <widget class="QSlider" name="horizontalSliderRed">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
+     <item row="1" column="2">
+      <widget class="QSpinBox" name="spinBoxRed"/>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="labelBlue">
@@ -66,14 +62,18 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
-      <widget class="QSpinBox" name="spinBoxRed"/>
+     <item row="3" column="2">
+      <widget class="QSpinBox" name="spinBoxBlue"/>
      </item>
      <item row="2" column="2">
       <widget class="QSpinBox" name="spinBoxGreen"/>
      </item>
-     <item row="3" column="2">
-      <widget class="QSpinBox" name="spinBoxBlue"/>
+     <item row="1" column="1">
+      <widget class="QSlider" name="horizontalSliderRed">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -159,6 +159,54 @@
     <hint type="destinationlabel">
      <x>230</x>
      <y>243</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBoxRed</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSliderRed</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>238</x>
+     <y>139</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>154</x>
+     <y>151</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBoxGreen</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSliderGreen</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>242</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>172</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBoxBlue</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSliderBlue</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>249</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>178</x>
+     <y>238</y>
     </hint>
    </hints>
   </connection>
