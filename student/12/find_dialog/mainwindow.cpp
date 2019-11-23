@@ -33,7 +33,7 @@ void MainWindow::on_findPushButton_pressed()
             QTextStream in(&file);
             while (!in.atEnd()) {
                 QString line = in.readLine();
-                if(ui->findPushButton->isChecked()){
+                if(ui->matchCheckBox->isChecked()){
                     if (line.contains(key, Qt::CaseSensitive)){
                         ui->textBrowser->setText("Word found");
                         return;

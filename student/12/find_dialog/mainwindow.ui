@@ -100,9 +100,9 @@
     <property name="geometry">
      <rect>
       <x>7</x>
-      <y>119</y>
+      <y>134</y>
       <width>381</width>
-      <height>41</height>
+      <height>16</height>
      </rect>
     </property>
     <property name="orientation">
@@ -178,22 +178,6 @@
     <hint type="destinationlabel">
      <x>340</x>
      <y>83</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>matchCheckBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>findPushButton</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>76</x>
-     <y>154</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>355</x>
-     <y>76</y>
     </hint>
    </hints>
   </connection>
