@@ -39,9 +39,9 @@ void MainWindow::on_findPushButton_pressed()
                         return;
                     }
                 }else{
-                    key.toUpper();
-                    line.toUpper();
-                    if (line.contains(key)){
+                    QString a = key.toUpper();
+                    QString b = line.toUpper();
+                    if (b.contains(a)){
                         ui->textBrowser->setText("Word found");
                         return;
                     }

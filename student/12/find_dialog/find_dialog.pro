@@ -35,5 +35,4 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
-DISTFILES += \
-    testi
+DISTFILES +=
