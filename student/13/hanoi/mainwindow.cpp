@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     scene_ = new QGraphicsScene(this);
+    GameEngine* game;
 
     int left_margin = 10;
     int top_margin = 270;
@@ -25,6 +26,25 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->BtoC->setDisabled(true);
     ui->CtoA->setDisabled(true);
     ui->CtoB->setDisabled(true);
+
+    connect(ui->AtoB,&QPushButton::clicked, this,[&](){
+       game->makeMove(1,2);
+    });
+    connect(ui->AtoC,&QPushButton::clicked, this,[&](){
+       game->makeMove(1,3);
+    });
+    connect(ui->BtoA,&QPushButton::clicked, this,[&](){
+       game->makeMove(2,1);
+    });
+    connect(ui->BtoC,&QPushButton::clicked, this,[&](){
+       game->makeMove(2,3);
+    });
+    connect(ui->CtoA,&QPushButton::clicked, this,[&](){
+       game->makeMove(3,1);
+    });
+    connect(ui->CtoB,&QPushButton::clicked, this,[&](){
+       game->makeMove(3,2);
+    });
 
 }
 

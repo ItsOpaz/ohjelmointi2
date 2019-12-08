@@ -17,7 +17,7 @@ public:
     explicit Pole(int maxPlates, QPoint location, QWidget* parent=nullptr);
     bool addPlate(Plate* addedPlate);
     void drawPlates(QGraphicsScene* scene);
-    bool moveToPlate(Pole* target);
+    bool movePlate(Pole* target);
     Plate* getTopPlate();
     std::vector <Plate*> getPlates();
     QRectF boundingRect() const override;

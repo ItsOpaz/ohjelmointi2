@@ -1,5 +1,6 @@
 #include "gameengine.hh"
 #include <QGraphicsItem>
+#include <vector>
 
 GameEngine::GameEngine(int amoutOfPlates, int amountOfPoles, QWidget *widget)
     :amountOfPlates(amoutOfPlates), amountOfPoles(amountOfPoles), parent(widget)
@@ -42,5 +43,7 @@ void GameEngine::drawPoles(QGraphicsScene *scene)
 
 bool GameEngine::makeMove(int sender, int receiver)
 {
+    poles.at(sender-1)->movePlate(poles.at(receiver-1));
+    return true;
 
 }

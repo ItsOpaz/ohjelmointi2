@@ -21,7 +21,7 @@ void Pole::drawPlates(QGraphicsScene* scene)
     }
 }
 
-bool Pole::moveToPlate(Pole *target)
+bool Pole::movePlate(Pole* target)
 {
     if (plates.size() == 0) {
         return false;

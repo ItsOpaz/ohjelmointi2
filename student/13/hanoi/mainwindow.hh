@@ -31,6 +31,10 @@ private:
     const int BORDER_DOWN = 260;
     const int BORDER_LEFT = 0;
     const int BORDER_RIGHT = 680;
+
+    const int pole1 = 1;
+    const int pole2 = 2;
+    const int pole3 = 3;
 };
 
 #endif // MAINWINDOW_HH

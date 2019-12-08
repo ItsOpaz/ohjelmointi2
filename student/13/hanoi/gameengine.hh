@@ -10,12 +10,13 @@
 class GameEngine
 {
 public:
-    GameEngine(int amoutOfPlates, int amountOfPoles, QWidget* widget = nullptr);
+    explicit GameEngine(int amoutOfPlates, int amountOfPoles, QWidget* widget = nullptr);
     ~GameEngine();
     void drawPoles(QGraphicsScene* scene);
     bool makeMove(int sender, int receiver);
+    std::vector<Pole *> poles;
 private:
-    std::vector<Pole*> poles;
+
     int amountOfPlates;
     int amountOfPoles;
 
