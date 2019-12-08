@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     plate.cpp \
-    rod.cpp
+    rod.cpp \
+    gameengine.cpp
 
 HEADERS += \
         mainwindow.hh \
     plate.hh \
-    rod.hh
+    rod.hh \
+    gameengine.hh
 
 FORMS += \
         mainwindow.ui
