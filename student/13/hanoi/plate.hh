@@ -3,22 +3,22 @@
 
 #include <QWidget>
 #include <QGraphicsItem>
-#include <QPainter>
 #include <QRectF>
-
+#include <memory>
+#include <QPainter>
 
 class Plate:public QGraphicsItem
 {
 public:
-    explicit Plate(int size, QPointF location, QSize pieceSize, QWidget* parent = nullptr);
+    explicit Plate(int size, int x, int y, int width, int height, QWidget *parent = nullptr);
+    explicit Plate(int size,QPointF location, QSize plateSize, QWidget* parent = nullptr);
 
-    int getWidth();
+    int getSize();
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-               QWidget *widget = nullptr) override;
-        QRectF boundingRect() const override;
+    QRectF boundingRect() const override;
 
-        QWidget* getParent();
+    QWidget* getParent();
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
 
 private:
     QRectF* frame;
@@ -27,7 +27,6 @@ private:
     int y_;
     int width_;
     int height_;
-
     QWidget* parent_;
 };
 

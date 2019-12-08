@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-12-03T12:23:37
+# Project created by QtCreator 2019-12-08T15:42:47
 #
 #-------------------------------------------------
 
@@ -26,15 +26,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    plate.cpp \
-    rod.cpp \
-    gameengine.cpp
+    gameengine.cpp \
+    pole.cpp \
+    plate.cpp
 
 HEADERS += \
         mainwindow.hh \
-    plate.hh \
-    rod.hh \
-    gameengine.hh
+    gameengine.hh \
+    pole.hh \
+    plate.hh
 
 FORMS += \
         mainwindow.ui

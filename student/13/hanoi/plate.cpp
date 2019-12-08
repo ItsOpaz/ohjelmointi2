@@ -1,39 +1,31 @@
 #include "plate.hh"
-#include <cstdlib>
 #include <QColor>
+#include <QWidget>
 
-
-
-Plate::Plate(int size, QPointF location, QSize pieceSize, QWidget *parent)
-    : size_(size),
-      x_(static_cast<int>(location.rx())),
-      y_(static_cast<int>(location.ry())),
-      width_(pieceSize.rwidth()),
-      height_(pieceSize.rheight()),
-      parent_(parent)
+Plate::Plate(int size, int x, int y, int width, int height, QWidget *parent)
+: size_(size), x_(x), y_(y), width_(width), height_(height), parent_(parent)
 
 {
-    frame = new QRectF(x_,y_,width_, height_);
-    setFlag(ItemIsMovable);
+  frame = new QRectF(x, y, width, height);
 }
 
-int Plate::getWidth()
+Plate::Plate(int size, QPointF location, QSize plateSize, QWidget *parent)
+   :size_(size),
+    x_(static_cast<int>(location.rx())),
+    y_(static_cast<int>(location.ry())),
+    width_(plateSize.rwidth()),
+    height_(plateSize.rheight()),
+    parent_(parent)
 {
-    return width_;
+    frame = new QRectF (x_,y_,width_,height_);
 }
 
-void Plate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+int Plate::getSize()
 {
-    int r = rand() % 256;
-    int g = rand() % 256;
-    int b = rand() % 256;
-    QColor randomColor(r, g, b);
-    QRectF rect = boundingRect();
-    QBrush brush(randomColor);
-
-    painter->fillRect(rect, brush);
-    painter->drawRect(rect);
+    return size_;
 }
+
+
 
 QRectF Plate::boundingRect() const
 {
@@ -43,4 +35,13 @@ QRectF Plate::boundingRect() const
 QWidget *Plate::getParent()
 {
     return this->parent_;
+}
+
+void Plate::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    QRectF rect = boundingRect();
+    QBrush brush(Qt::red);
+
+    painter->fillRect(rect, brush);
+    painter->drawRect(rect);
 }

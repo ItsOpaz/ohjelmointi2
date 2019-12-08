@@ -1,46 +1,60 @@
 #include "mainwindow.hh"
 #include "ui_mainwindow.h"
+#include <QString>
 #include <QtCore>
 #include <QtGui>
 #include <QString>
-#include <iostream>
-#include <vector>
-
-#include "rod.hh"
-#include "plate.hh"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui_(new Ui::MainWindow)
+    ui(new Ui::MainWindow)
 {
-    ui_->setupUi(this);
+    ui->setupUi(this);
 
-    scene_ = new QGraphicsScene();
+    scene_ = new QGraphicsScene(this);
 
     int left_margin = 10;
     int top_margin = 270;
-
-    ui_->gameInterface->setGeometry(left_margin, top_margin,
+    ui->gameInterface->setGeometry(left_margin, top_margin,
                                    BORDER_RIGHT + 2, BORDER_DOWN + 2);
-    ui_->gameInterface->setScene(scene_);
-    ui_->gameInterface->setSceneRect(scene_->sceneRect());
+    ui->gameInterface->setScene(scene_);
+
+    ui->AtoB->setDisabled(true);
+    ui->AtoC->setDisabled(true);
+    ui->BtoA->setDisabled(true);
+    ui->BtoC->setDisabled(true);
+    ui->CtoA->setDisabled(true);
+    ui->CtoB->setDisabled(true);
 
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui_;
+    delete ui;
 }
 
-void MainWindow::StartGame()
+void MainWindow::on_startButton_clicked()
 {
-
+    QString value = ui->amountOfPlates->text();
+    if(!value.toInt()){
+        ui->textBrowser->setText("Amount of plates must be number!");
+        return;
+    }if(value.toInt()<=1){
+        ui->textBrowser->setText("Amount of plates must over 1!");
+        return;
+    }else{
+        ui->AtoB->setDisabled(false);
+        ui->AtoC->setDisabled(false);
+        ui->BtoA->setDisabled(false);
+        ui->BtoC->setDisabled(false);
+        ui->CtoA->setDisabled(false);
+        ui->CtoB->setDisabled(false);
+        int amount = value.toInt();
+        scene_->clear();
+        ui->textBrowser->clear();
+        GameEngine* game = new GameEngine(amount, NUMBER_OF_POLES, ui->gameInterface);
+        game -> drawPoles(scene_);
+    }
 }
-
-void MainWindow::Restart()
-{
-
-}
-
 
 

@@ -4,22 +4,20 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include <vector>
-#include "rod.hh"
 #include "plate.hh"
+#include "pole.hh"
 
 class GameEngine
 {
 public:
-    GameEngine(int platesPerRod, int amountOfRods= 3, QWidget* widget = nullptr);
+    GameEngine(int amoutOfPlates, int amountOfPoles, QWidget* widget = nullptr);
     ~GameEngine();
-    void drawTowers(QGraphicsScene* scene);
-    bool makeMove(int senderID, int receiverID);
-
-
+    void drawPoles(QGraphicsScene* scene);
+    bool makeMove(int sender, int receiver);
 private:
-    std::vector <Rod*> rods;
-    int platesPerRod;
-    int amountOfRods;
+    std::vector<Pole*> poles;
+    int amountOfPlates;
+    int amountOfPoles;
 
     QWidget* parent;
 };
