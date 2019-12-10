@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include "gameengine.hh"
 #include "pole.hh"
+#include <QListWidget>
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +36,7 @@ private:
     const int left_margin = 10;
     const int top_margin = 270;
 
+    int minMoves;
     std::vector <QString> moves;
 };
 

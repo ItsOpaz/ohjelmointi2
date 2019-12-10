@@ -4,21 +4,21 @@
 #include <iostream>
 #include <QDebug>
 
-GameEngine::GameEngine(int amoutOfPlates, int amountOfPoles, QWidget *widget)
-    :amountOfPlates(amoutOfPlates), amountOfPoles(amountOfPoles), parent(widget)
+GameEngine::GameEngine(int maxPlates, int amountOfPoles, QWidget *widget)
+    :maxPlates(maxPlates), amountOfPoles(amountOfPoles), parent(widget)
 {
     int spacing = parent->width()/amountOfPoles;
     for (int i = 0; i < amountOfPoles; ++i) {
         QPoint polePoint(i*spacing, -parent->geometry().height());
-        Pole* pole = new Pole(amountOfPlates, i+1, polePoint, parent);
+        Pole* pole = new Pole(maxPlates, i+1, polePoint, parent);
         if (i == 0) {
-            for (int j = amountOfPlates; j > 0; j--) {
-                int blockSize = 270/amountOfPlates*0.92;
+            for (int j = maxPlates; j > 0; j--) {
+                int blockSize = 270/maxPlates*0.92;
                 int grid = j*blockSize;
                 QPoint blockOffset(
                         polePoint.x() - grid/2
                             + static_cast<int>(pole->boundingRect().width()/2)
-                            , polePoint.y() + pole->boundingRect().height() -(amountOfPlates+1)*blockSize + grid);
+                            , polePoint.y() + pole->boundingRect().height() -(maxPlates+1)*blockSize + grid);
                 Plate* newPlate = new Plate(j, blockOffset, QSize(grid, blockSize), parent);
                 pole->addPlate(newPlate);
             }

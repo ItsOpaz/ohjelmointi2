@@ -4,6 +4,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <QString>
+#include <cmath>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -27,11 +28,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_startButton_clicked()
 {
-    QString value = ui->amountOfPlates->text();
-    if(!value.toInt()){
+    QString plateValue = ui->amountOfPlates->text();
+    if(!plateValue.toInt()){
         ui->textBrowser->setText("Amount of plates must be number!");
         return;
-    }if(value.toInt()<=1){
+    }if(plateValue.toInt()<=1){
         ui->textBrowser->setText("Amount of plates must over 1!");
         return;
     }else{
@@ -41,14 +42,20 @@ void MainWindow::on_startButton_clicked()
         }
         scene_->clear();
         ui->textBrowser->clear();
-        game = new GameEngine(value.toInt(), NUMBER_OF_POLES, ui->gameInterface);
+        game = new GameEngine(plateValue.toInt(), NUMBER_OF_POLES, ui->gameInterface);
+        minMoves = pow(2,plateValue.toInt())-1;
         game -> drawPoles(scene_);
         connect(ui->buttonGroup, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
             [=](int id){
             if(!game->makeMove(id)){
                 ui->textBrowser->setText("Sorry, can't do that");
             }else{
-                moves.push_back(ui->buttonGroup->button(id)->objectName());
+                QString buttonName = ui->buttonGroup->button(id)->objectName();
+                moves.push_back(buttonName);
+                new QListWidgetItem(buttonName,ui->allMoves);
+                ui->allMoves->scrollToBottom();
+                ui->count->setText(QString::number(moves.size()));
+                ui->min->setText(QString::number(minMoves-moves.size()));
                 ui->textBrowser->clear();
         }
         });
