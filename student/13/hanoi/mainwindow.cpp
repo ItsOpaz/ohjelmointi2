@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gameInterface->setGeometry(left_margin, top_margin,
                                    BORDER_RIGHT, BORDER_DOWN);
     ui->gameInterface->setScene(scene_);
+    ui->lcdMin->setStyleSheet("background-color: lightcyan");
+    ui->lcdSec->setStyleSheet("background-color: lightblue");
     QList<QAbstractButton *> list  = ui->buttonGroup->buttons();
     foreach ( QAbstractButton *pButton, list){
         pButton->setDisabled(true);
@@ -42,10 +44,14 @@ void MainWindow::on_startButton_clicked()
             pButton->setDisabled(false);
         }
         scene_->clear();
+        secs = 0;
+        mins = 0;
         ui->textBrowser->clear();
         game = new GameEngine(plateValue.toInt(), NUMBER_OF_POLES, ui->gameInterface);
         minMoves = pow(2,plateValue.toInt())-1;
         game -> drawPoles(scene_);
+        timer.start(1000);
+        connect(&timer, &QTimer::timeout, this, &MainWindow::tick);
         connect(ui->buttonGroup, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
             [=](int id){
             if(!game->makeMove(id)){
@@ -69,6 +75,7 @@ void MainWindow::on_startButton_clicked()
 void MainWindow::endGame()
 {
     scene_->clear();
+    timer.stop();
     QList<QAbstractButton *> list  = ui->buttonGroup->buttons();
     foreach ( QAbstractButton *pButton, list){
         pButton->setDisabled(true);
@@ -76,4 +83,17 @@ void MainWindow::endGame()
     QMessageBox msgBox;
     msgBox.setText("You won!");
     msgBox.exec();
+}
+
+void MainWindow::tick()
+{
+    if(secs!=60){
+        ui->lcdSec->display(secs);
+        ++secs;
+    }else{
+        secs = 0;
+        ui->lcdSec->display(secs);
+        ++mins;
+        ui->lcdMin->display(mins);
+    }
 }

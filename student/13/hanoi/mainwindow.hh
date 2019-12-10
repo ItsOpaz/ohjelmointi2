@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QWidget>
+#include <QTimer>
 #include "gameengine.hh"
 #include "pole.hh"
 #include <QListWidget>
@@ -23,11 +24,12 @@ public:
 private slots:
     void on_startButton_clicked();
     void endGame();
+    void tick();
 
 private:
     Ui::MainWindow *ui;
     GameEngine* game;
-
+    QTimer timer;
     QGraphicsScene* scene_;
 
     const int NUMBER_OF_POLES = 3;
@@ -38,6 +40,8 @@ private:
     const int left_margin = 10;
     const int top_margin = 270;
 
+    int secs = 0;
+    int mins = 0;
     int minMoves;
     int moveCounter = 0;
 };

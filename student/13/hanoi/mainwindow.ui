@@ -229,6 +229,26 @@
      </item>
     </layout>
    </widget>
+   <widget class="QLCDNumber" name="lcdMin">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>20</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lcdSec">
+    <property name="geometry">
+     <rect>
+      <x>563</x>
+      <y>20</y>
+      <width>61</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
