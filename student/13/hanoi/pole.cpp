@@ -1,15 +1,18 @@
 #include "pole.hh"
+#include "gameengine.hh"
 #include <QPointF>
 #include <QWidget>
+#include <QPainter>
 
-Pole::Pole(int maxPlates, QPoint location, QWidget *parent)
-    :maxPlates_(maxPlates), location_(location), parent(parent)
+Pole::Pole(int maxPlates,int poleID, QPoint location, QWidget *parent)
+    :maxPlates_(maxPlates), id(poleID), location_(location), parent(parent)
 {
     stick = new QRectF(location, QSize(POLE_WIDTH, static_cast<int>(parent->height()) * 0.9));
 }
 
 bool Pole::addPlate(Plate *addedPlate)
 {
+
     plates.push_back(addedPlate);
     return true;
 }
@@ -26,24 +29,17 @@ bool Pole::movePlate(Pole* target)
     if (plates.size() == 0) {
         return false;
     }
-
     Plate* plateToMove = plates.back();
-
     if (plateToMove->getSize() > target->getTopPlate()->getSize()) {
         return false;
     }
-
-
     qreal dy = (this->plates.size()-1)*plateToMove->boundingRect().height() - (target->plates.size())*plateToMove->boundingRect().height();
     qreal dx = target->boundingRect().x() - boundingRect().x();
-
     plateToMove->moveBy(dx, dy);
     plateToMove->setParentItem(target);
-
     target->addPlate(plateToMove);
     this->plates.pop_back();
     return true;
-
 }
 
 Plate *Pole::getTopPlate()
@@ -68,8 +64,8 @@ QRectF Pole::boundingRect() const
 void Pole::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QRectF rect = boundingRect();
-    QBrush brush(Qt::blue);
-
+    QBrush brush(colors.at(id-1));
     painter->fillRect(rect, brush);
     painter->drawRect(rect);
+
 }

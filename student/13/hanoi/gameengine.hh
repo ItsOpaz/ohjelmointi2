@@ -13,10 +13,10 @@ public:
     explicit GameEngine(int amoutOfPlates, int amountOfPoles, QWidget* widget = nullptr);
     ~GameEngine();
     void drawPoles(QGraphicsScene* scene);
-    bool makeMove(int sender, int receiver);
-    std::vector<Pole *> poles;
+    bool makeMove(int id);
 private:
 
+    std::vector<Pole *> poles;
     int amountOfPlates;
     int amountOfPoles;
 

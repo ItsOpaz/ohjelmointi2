@@ -36,6 +36,9 @@
     <property name="text">
      <string>A-&gt;B</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="AtoC">
     <property name="geometry">
@@ -49,32 +52,9 @@
     <property name="text">
      <string>A-&gt;C</string>
     </property>
-   </widget>
-   <widget class="QPushButton" name="CtoA">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>230</y>
-      <width>84</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>C-&gt;A</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="CtoB">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>230</y>
-      <width>84</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>C-&gt;B</string>
-    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="BtoA">
     <property name="geometry">
@@ -88,6 +68,9 @@
     <property name="text">
      <string>B-&gt;A</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="BtoC">
     <property name="geometry">
@@ -101,6 +84,41 @@
     <property name="text">
      <string>B-&gt;C</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QPushButton" name="CtoA">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>230</y>
+      <width>84</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>C-&gt;A</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QPushButton" name="CtoB_2">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>230</y>
+      <width>84</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>C-&gt;B</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -202,4 +220,7 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>

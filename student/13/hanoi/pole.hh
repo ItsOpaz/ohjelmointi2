@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
-#include <QPen>
 #include <QBrush>
 #include <QPoint>
 #include <memory>
@@ -14,7 +13,7 @@
 class Pole: public QGraphicsItem
 {
 public:
-    explicit Pole(int maxPlates, QPoint location, QWidget* parent=nullptr);
+    explicit Pole(int maxPlates, int poleID, QPoint location, QWidget* parent=nullptr);
     bool addPlate(Plate* addedPlate);
     void drawPlates(QGraphicsScene* scene);
     bool movePlate(Pole* target);
@@ -25,11 +24,14 @@ public:
 
 private:
     const int POLE_WIDTH = 5;
+    std::vector <QColor> colors {Qt::red, Qt::green, Qt::blue};
     std::vector <Plate*> plates;
     QRectF* stick;
     int maxPlates_;
+    int id;
     QPoint location_;
     QWidget* parent;
+    QBrush* brush;
     int maxPieceWidth;
 };
 

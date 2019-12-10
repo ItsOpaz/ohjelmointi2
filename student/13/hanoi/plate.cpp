@@ -25,8 +25,6 @@ int Plate::getSize()
     return size_;
 }
 
-
-
 QRectF Plate::boundingRect() const
 {
     return *frame;

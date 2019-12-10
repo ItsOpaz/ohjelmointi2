@@ -28,6 +28,7 @@ private:
     int width_;
     int height_;
     QWidget* parent_;
+    QBrush* brush;
 };
 
 #endif // PLATE_HH
