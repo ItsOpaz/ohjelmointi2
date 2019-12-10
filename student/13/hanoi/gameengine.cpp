@@ -29,6 +29,13 @@ GameEngine::GameEngine(int maxPlates, int amountOfPoles, QWidget *widget)
 
 }
 
+GameEngine::~GameEngine()
+{
+    for(auto pole : poles){
+        delete pole;
+    }
+}
+
 void GameEngine::drawPoles(QGraphicsScene *scene)
 {
     for(auto pole:poles){
@@ -55,4 +62,14 @@ bool GameEngine::makeMove(int id)
     default:
         return false;
     }
+}
+
+bool GameEngine::gameEnd()
+{
+    for(int i = 1; i<=2;++i){
+        int tmp = poles.at(i)->getPlates().size();
+        if(tmp==maxPlates){
+            return true;
+        }
+    }return false;
 }

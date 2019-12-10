@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QWidget>
 #include "gameengine.hh"
 #include "pole.hh"
 #include <QListWidget>
@@ -21,6 +22,7 @@ public:
 
 private slots:
     void on_startButton_clicked();
+    void endGame();
 
 private:
     Ui::MainWindow *ui;
@@ -37,7 +39,7 @@ private:
     const int top_margin = 270;
 
     int minMoves;
-    std::vector <QString> moves;
+    int moveCounter = 0;
 };
 
 #endif // MAINWINDOW_HH

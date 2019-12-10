@@ -14,14 +14,13 @@ public:
     ~GameEngine();
     void drawPoles(QGraphicsScene* scene);
     bool makeMove(int id);
+    bool gameEnd();
 private:
 
     std::vector<Pole *> poles;
     int maxPlates;
     int amountOfPoles;
     
-    Pole* sender;
-    Pole* receiver;
     QWidget* parent;
 };
 

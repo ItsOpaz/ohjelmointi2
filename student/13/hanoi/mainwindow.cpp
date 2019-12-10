@@ -5,6 +5,7 @@
 #include <QtGui>
 #include <QString>
 #include <cmath>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     scene_ = new QGraphicsScene(this);
     ui->gameInterface->setGeometry(left_margin, top_margin,
-                                   BORDER_RIGHT + 2, BORDER_DOWN + 2);
+                                   BORDER_RIGHT, BORDER_DOWN);
     ui->gameInterface->setScene(scene_);
     QList<QAbstractButton *> list  = ui->buttonGroup->buttons();
     foreach ( QAbstractButton *pButton, list){
@@ -51,13 +52,28 @@ void MainWindow::on_startButton_clicked()
                 ui->textBrowser->setText("Sorry, can't do that");
             }else{
                 QString buttonName = ui->buttonGroup->button(id)->objectName();
-                moves.push_back(buttonName);
+                ++moveCounter;
                 new QListWidgetItem(buttonName,ui->allMoves);
                 ui->allMoves->scrollToBottom();
-                ui->count->setText(QString::number(moves.size()));
-                ui->min->setText(QString::number(minMoves-moves.size()));
+                ui->count->setText(QString::number(moveCounter));
+                ui->min->setText(QString::number(minMoves-moveCounter));
                 ui->textBrowser->clear();
-        }
+                if(game->gameEnd()){
+                    endGame();
+                }
+            }
         });
     }
+}
+
+void MainWindow::endGame()
+{
+    scene_->clear();
+    QList<QAbstractButton *> list  = ui->buttonGroup->buttons();
+    foreach ( QAbstractButton *pButton, list){
+        pButton->setDisabled(true);
+    }
+    QMessageBox msgBox;
+    msgBox.setText("You won!");
+    msgBox.exec();
 }
