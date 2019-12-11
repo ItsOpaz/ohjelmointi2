@@ -26,8 +26,46 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete game;
     delete ui;
+}
+
+void MainWindow::autoMove()
+{
+    if(autoCounter==0){
+        if(game->poles[1]->plates.empty()){
+            ui->AtoB->click();
+        }else if(game->poles[0]->plates.empty()){
+            ui->BtoA->click();
+        }else if(game->isViable(0,1)){
+            ui->AtoB->click();
+        }else{
+            ui->BtoA->click();
+        }
+        ++autoCounter;
+    }else if(autoCounter==1){
+        if(game->poles[2]->plates.empty()){
+            ui->AtoC->click();
+        }else if(game->poles[0]->plates.empty()){
+            ui->CtoA->click();
+        }else if(game->isViable(0,2)){
+            ui->AtoC->click();
+        }else{
+            ui->CtoA->click();
+        }
+        ++autoCounter;
+    }else{
+        if(game->poles[2]->plates.empty()){
+            ui->BtoC->click();
+        }else if(game->poles[1]->plates.empty()){
+            ui->CtoB->click();
+        }else if(game->isViable(1,2)){
+            ui->BtoC->click();
+        }else{
+            ui->CtoB->click();
+        }
+        autoCounter = 0;
+    }
+    
 }
 
 void MainWindow::on_startButton_clicked()
@@ -36,7 +74,7 @@ void MainWindow::on_startButton_clicked()
     if(!plateValue.toInt()){
         ui->textBrowser->setText("Amount of plates must be number!");
         return;
-    }if(plateValue.toInt()<=1){
+    }else if(plateValue.toInt()<=1){
         ui->textBrowser->setText("Amount of plates must over 1!");
         return;
     }else{
@@ -83,18 +121,39 @@ void MainWindow::endGame()
     }
     QMessageBox msgBox;
     msgBox.setText("You won!");
+    QAbstractButton* answer = msgBox.addButton(tr("Quit"), QMessageBox::YesRole);
     msgBox.exec();
+
+    if(answer == msgBox.clickedButton()){
+        msgBox.close();
+        ui->quitButton->click();
+    }
 }
 
 void MainWindow::tick()
 {
-    if(secs!=60){
-        ui->lcdSec->display(secs);
-        ++secs;
+    if(ui->autoCheck->isChecked()){
+        if(secs!=60){
+            ui->lcdSec->display(secs);
+            ++secs;
+            autoMove();
+        }else{
+            secs = 0;
+            ui->lcdSec->display(secs);
+            ++mins;
+            ui->lcdMin->display(mins);
+            autoMove();
+        }  
     }else{
-        secs = 0;
-        ui->lcdSec->display(secs);
-        ++mins;
-        ui->lcdMin->display(mins);
+        if(secs!=60){
+            ui->lcdSec->display(secs);
+            ++secs;
+        }else{
+            secs = 0;
+            ui->lcdSec->display(secs);
+            ++mins;
+            ui->lcdMin->display(mins);
+        }
     }
+
 }

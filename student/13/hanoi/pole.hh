@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QBrush>
 #include <QPoint>
+#include <QDebug>
 #include <memory>
 #include <vector>
 #include "plate.hh"
@@ -21,11 +22,10 @@ public:
     std::vector <Plate*> getPlates();
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
-
+    std::vector <Plate*> plates;
 private:
     const int POLE_WIDTH = 5;
     std::vector <QColor> colors {Qt::red, Qt::green, Qt::blue};
-    std::vector <Plate*> plates;
     QRectF* stick;
     int maxPlates_;
     int id;

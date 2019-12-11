@@ -31,9 +31,10 @@ GameEngine::GameEngine(int maxPlates, int amountOfPoles, QWidget *widget)
 
 GameEngine::~GameEngine()
 {
-    for (auto& pole : poles) {
-        delete pole;
-        pole = nullptr;
+    while(!poles.empty()){
+        Pole* toDelete = poles.back();
+        poles.pop_back();
+        delete toDelete;
     }
 }
 
@@ -73,4 +74,9 @@ bool GameEngine::gameEnd()
             return true;
         }
     }return false;
+}
+
+bool GameEngine::isViable(int a, int b)
+{
+    return(poles[a]->plates.back()->getSize() < poles[b]->plates.back()->getSize());
 }

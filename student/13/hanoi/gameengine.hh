@@ -15,12 +15,11 @@ public:
     void drawPoles(QGraphicsScene* scene);
     bool makeMove(int id);
     bool gameEnd();
-private:
-
+    bool isViable(int a, int b);
     std::vector<Pole *> poles;
+private:
     int maxPlates;
-    int amountOfPoles;
-    
+    int amountOfPoles; 
     QWidget* parent;
 };
 

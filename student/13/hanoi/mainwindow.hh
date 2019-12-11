@@ -19,7 +19,8 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    ~MainWindow() override;
+    void autoMove();
 
 private slots:
     void on_startButton_clicked();
@@ -28,7 +29,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    GameEngine *game;
+    GameEngine *game = nullptr;
     QTimer timer;
     QGraphicsScene *scene_;
 
@@ -40,6 +41,7 @@ private:
     const int left_margin = 10;
     const int top_margin = 270;
 
+    int autoCounter = 0;
     int secs = 0;
     int mins = 0;
     int minMoves;
