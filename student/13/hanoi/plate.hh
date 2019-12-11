@@ -12,7 +12,7 @@ class Plate:public QGraphicsItem
 public:
     explicit Plate(int size, int x, int y, int width, int height, QWidget *parent = nullptr);
     explicit Plate(int size,QPointF location, QSize plateSize, QWidget* parent = nullptr);
-
+    ~Plate() override;
     int getSize();
 
     QRectF boundingRect() const override;

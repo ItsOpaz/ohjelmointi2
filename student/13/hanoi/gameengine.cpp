@@ -31,7 +31,10 @@ GameEngine::GameEngine(int maxPlates, int amountOfPoles, QWidget *widget)
 
 GameEngine::~GameEngine()
 {
-
+    for (auto& pole : poles) {
+        delete pole;
+        pole = nullptr;
+    }
 }
 
 void GameEngine::drawPoles(QGraphicsScene *scene)

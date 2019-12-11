@@ -28,9 +28,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    GameEngine* game;
+    GameEngine *game;
     QTimer timer;
-    QGraphicsScene* scene_;
+    QGraphicsScene *scene_;
 
     const int NUMBER_OF_POLES = 3;
     const int BORDER_UP = 0;

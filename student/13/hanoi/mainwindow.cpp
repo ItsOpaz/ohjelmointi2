@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete game;
     delete ui;
 }
 
@@ -39,11 +40,11 @@ void MainWindow::on_startButton_clicked()
         ui->textBrowser->setText("Amount of plates must over 1!");
         return;
     }else{
+        ui->startButton->setDisabled(true);
         QList<QAbstractButton *> list  = ui->buttonGroup->buttons();
         foreach ( QAbstractButton *pButton, list){
             pButton->setDisabled(false);
         }
-        scene_->clear();
         secs = 0;
         mins = 0;
         ui->textBrowser->clear();

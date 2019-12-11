@@ -10,6 +10,15 @@ Pole::Pole(int maxPlates,int poleID, QPoint location, QWidget *parent)
     stick = new QRectF(location, QSize(POLE_WIDTH, static_cast<int>(parent->height()) * 0.9));
 }
 
+Pole::~Pole()
+{
+    for(auto& plate : plates){
+        delete plate;
+        plate = nullptr;
+    }
+    delete stick;
+}
+
 bool Pole::addPlate(Plate *addedPlate)
 {
 
@@ -30,8 +39,10 @@ bool Pole::movePlate(Pole* target)
         return false;
     }
     Plate* plateToMove = plates.back();
-    if (plateToMove->getSize() > target->getTopPlate()->getSize()) {
-        return false;
+    if(!target->plates.empty()){
+        if (plateToMove->getSize() > target->plates.back()->getSize()) {
+            return false;
+        }
     }
     qreal dy = (this->plates.size()-1)*plateToMove->boundingRect().height() - (target->plates.size())*plateToMove->boundingRect().height();
     qreal dx = target->boundingRect().x() - boundingRect().x();
@@ -42,19 +53,10 @@ bool Pole::movePlate(Pole* target)
     return true;
 }
 
-Plate *Pole::getTopPlate()
-{
-    if (plates.size()==0){
-        return new Plate(maxPlates_, 0,0,0,0, parent);
-    }
-    return plates.back();
-}
-
 std::vector<Plate *> Pole::getPlates()
 {
     return plates;
 }
-
 
 QRectF Pole::boundingRect() const
 {

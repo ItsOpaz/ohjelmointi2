@@ -14,10 +14,10 @@ class Pole: public QGraphicsItem
 {
 public:
     explicit Pole(int maxPlates, int poleID, QPoint location, QWidget* parent=nullptr);
+    ~Pole() override;
     bool addPlate(Plate* addedPlate);
     void drawPlates(QGraphicsScene* scene);
     bool movePlate(Pole* target);
-    Plate* getTopPlate();
     std::vector <Plate*> getPlates();
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;

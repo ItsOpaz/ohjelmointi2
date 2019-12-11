@@ -20,6 +20,11 @@ Plate::Plate(int size, QPointF location, QSize plateSize, QWidget *parent)
     frame = new QRectF (x_,y_,width_,height_);
 }
 
+Plate::~Plate()
+{
+    delete frame;
+}
+
 int Plate::getSize()
 {
     return size_;
