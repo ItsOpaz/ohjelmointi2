@@ -6,6 +6,7 @@
 #include <QString>
 #include <cmath>
 #include <QMessageBox>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gameInterface->setScene(scene_);
     ui->lcdMin->setStyleSheet("background-color: lightcyan");
     ui->lcdSec->setStyleSheet("background-color: lightblue");
-    QList<QAbstractButton *> list  = ui->buttonGroup->buttons();
-    foreach ( QAbstractButton *pButton, list){
+    QList<QAbstractButton *> buttonList  = ui->buttonGroup->buttons();
+    foreach ( QAbstractButton *pButton, buttonList){
         pButton->setDisabled(true);
     }
 }
@@ -79,14 +80,14 @@ void MainWindow::on_startButton_clicked()
         return;
     }else{
         ui->startButton->setDisabled(true);
-        QList<QAbstractButton *> list  = ui->buttonGroup->buttons();
-        foreach ( QAbstractButton *pButton, list){
+        QList<QAbstractButton *> buttonList  = ui->buttonGroup->buttons();
+        foreach ( QAbstractButton *pButton, buttonList){
             pButton->setDisabled(false);
         }
         secs = 0;
         mins = 0;
         ui->textBrowser->clear();
-        game = new GameEngine(plateValue.toInt(), NUMBER_OF_POLES, ui->gameInterface);
+        game = new GameEngine(plateValue.toLong(), NUMBER_OF_POLES, ui->gameInterface);
         minMoves = pow(2,plateValue.toInt())-1;
         game -> drawPoles(scene_);
         timer.start(1000);
@@ -113,17 +114,18 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::endGame()
 {
-    scene_->clear();
     timer.stop();
     QList<QAbstractButton *> list  = ui->buttonGroup->buttons();
     foreach ( QAbstractButton *pButton, list){
         pButton->setDisabled(true);
     }
     QMessageBox msgBox;
-    msgBox.setText("You won!");
+    QString sMins = QString::number(mins);
+    QString sSecs = QString::number(secs);
+    msgBox.setToolTip("You won!");
+    msgBox.setText("You won!\n Your time: " + sMins + " minutes " + sSecs + "seconds");
     QAbstractButton* answer = msgBox.addButton(tr("Quit"), QMessageBox::YesRole);
     msgBox.exec();
-
     if(answer == msgBox.clickedButton()){
         msgBox.close();
         ui->quitButton->click();
@@ -134,8 +136,8 @@ void MainWindow::tick()
 {
     if(ui->autoCheck->isChecked()){
         if(secs!=60){
-            ui->lcdSec->display(secs);
             ++secs;
+            ui->lcdSec->display(secs);
             autoMove();
         }else{
             secs = 0;
@@ -156,4 +158,11 @@ void MainWindow::tick()
         }
     }
 
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event){
+    std::vector<Qt::Key>::iterator it = std::find(keys.begin(),keys.end(),event->key());
+    int index = it-keys.begin();
+    QList<QAbstractButton *> buttonList  = ui->buttonGroup->buttons();
+    buttonList.at(index)->click();
 }

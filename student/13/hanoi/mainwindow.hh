@@ -20,7 +20,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow() override;
+    void keyPressEvent(QKeyEvent* event) override;
     void autoMove();
+    GameEngine *game;
 
 private slots:
     void on_startButton_clicked();
@@ -29,9 +31,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    GameEngine *game = nullptr;
+
     QTimer timer;
     QGraphicsScene *scene_;
+    std::vector<Qt::Key> keys = {Qt::Key_Q, Qt::Key_W, Qt::Key_E,
+                                 Qt::Key_R, Qt::Key_T, Qt::Key_Y};
 
     const int NUMBER_OF_POLES = 3;
     const int BORDER_UP = 0;
@@ -40,7 +44,6 @@ private:
     const int BORDER_RIGHT = 680;
     const int left_margin = 10;
     const int top_margin = 270;
-
     int autoCounter = 0;
     int secs = 0;
     int mins = 0;
