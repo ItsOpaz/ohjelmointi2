@@ -2,18 +2,17 @@
 #include <QGraphicsItem>
 #include <vector>
 #include <iostream>
-#include <QDebug>
 
 GameEngine::GameEngine(int maxPlates, int amountOfPoles, QWidget *widget)
     :maxPlates(maxPlates), amountOfPoles(amountOfPoles), parent(widget)
 {
-    int spacing = parent->width()/amountOfPoles;
+    int spacing = parent->width()/amountOfPoles+1;
     for (int i = 0; i < amountOfPoles; ++i) {
         QPoint polePoint(i*spacing, -parent->geometry().height());
-        Pole* pole = new Pole(maxPlates, i+1, polePoint, parent);
+        Pole* pole = new Pole(maxPlates, i, polePoint, parent);
         if (i == 0) {
             for (int j = maxPlates; j > 0; j--) {
-                int blockSize = 270/maxPlates*0.92;
+                int blockSize = pole->boundingRect().height()/maxPlates;
                 int grid = j*blockSize;
                 QPoint blockOffset(
                         polePoint.x() - grid/2
@@ -22,9 +21,11 @@ GameEngine::GameEngine(int maxPlates, int amountOfPoles, QWidget *widget)
                 Plate* newPlate = new Plate(j, blockOffset, QSize(grid, blockSize), parent);
                 pole->addPlate(newPlate);
             }
+
         }
         poles.push_back(pole);
     }
+
 }
 
 GameEngine::~GameEngine()
@@ -36,7 +37,6 @@ void GameEngine::drawPoles(QGraphicsScene *scene)
 {
     for(auto pole:poles){
         scene->addItem(pole);
-        pole->drawPlates(scene);
     }
 }
 

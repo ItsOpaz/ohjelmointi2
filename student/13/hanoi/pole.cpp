@@ -17,16 +17,10 @@ Pole::~Pole()
 
 bool Pole::addPlate(Plate *addedPlate)
 {
-
+    addedPlate->setColor(colors[id]);
+    addedPlate->setParentItem(this);
     plates.push_back(addedPlate);
     return true;
-}
-
-void Pole::drawPlates(QGraphicsScene* scene)
-{
-    for(auto plate : plates){
-        scene->addItem(plate);
-    }
 }
 
 bool Pole::movePlate(Pole* target)
@@ -61,8 +55,9 @@ QRectF Pole::boundingRect() const
 
 void Pole::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QRectF rect = boundingRect();
-    QBrush brush(colors.at(id-1));
+    parent = widget;
+    QRectF rect = option->exposedRect;
+    QBrush brush(colors[id]);
     painter->fillRect(rect, brush);
     painter->drawRect(rect);
 

@@ -6,7 +6,6 @@
 #include <QGraphicsScene>
 #include <QBrush>
 #include <QPoint>
-#include <QDebug>
 #include <memory>
 #include <vector>
 #include "plate.hh"
@@ -17,7 +16,6 @@ public:
     explicit Pole(int maxPlates, int poleID, QPoint location, QWidget* parent=nullptr);
     ~Pole() override;
     bool addPlate(Plate* addedPlate);
-    void drawPlates(QGraphicsScene* scene);
     bool movePlate(Pole* target);
     std::vector <Plate*> getPlates();
     QRectF boundingRect() const override;

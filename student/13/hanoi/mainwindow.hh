@@ -22,12 +22,14 @@ public:
     ~MainWindow() override;
     void keyPressEvent(QKeyEvent* event) override;
     void autoMove();
-    GameEngine *game;
+    GameEngine *game = nullptr;
 
 private slots:
     void on_startButton_clicked();
     void endGame();
     void tick();
+
+    void on_autoGame_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -49,6 +51,7 @@ private:
     int mins = 0;
     int minMoves;
     int moveCounter = 0;
+    bool automated = false;
 };
 
 #endif // MAINWINDOW_HH

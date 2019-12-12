@@ -6,7 +6,6 @@
 #include <QString>
 #include <cmath>
 #include <QMessageBox>
-#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     scene_ = new QGraphicsScene(this);
     ui->gameInterface->setGeometry(left_margin, top_margin,
                                    BORDER_RIGHT, BORDER_DOWN);
+    ui->autoGameLabel->setStyleSheet("background-color: rgb(50, 50, 50)");
+    ui->autoGameLabel->hide();
     ui->gameInterface->setScene(scene_);
     ui->lcdMin->setStyleSheet("background-color: lightcyan");
     ui->lcdSec->setStyleSheet("background-color: lightblue");
@@ -27,17 +28,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    while(!game->poles.empty()){
-        Pole* toDeletePole = game->poles.back();
-        game->poles.pop_back();
-        while(!toDeletePole->plates.empty()){
-            Plate* toDeletePlate = toDeletePole->plates.back();
-            toDeletePole->plates.pop_back();
-            delete toDeletePlate;
+    if(game != nullptr){
+        while(!game->poles.empty()){
+            Pole* toDeletePole = game->poles.back();
+            game->poles.pop_back();
+            while(!toDeletePole->plates.empty()){
+                Plate* toDeletePlate = toDeletePole->plates.back();
+                toDeletePole->plates.pop_back();
+                delete toDeletePlate;
+            }
+            delete toDeletePole;
         }
-        delete toDeletePole;
+        delete game;
     }
-    delete game;
     delete ui;
 }
 
@@ -91,6 +94,7 @@ void MainWindow::on_startButton_clicked()
         return;
     }else{
         ui->startButton->setDisabled(true);
+        ui->autoGame->setDisabled(true);
         QList<QAbstractButton *> buttonList  = ui->buttonGroup->buttons();
         foreach ( QAbstractButton *pButton, buttonList){
             pButton->setDisabled(false);
@@ -99,7 +103,7 @@ void MainWindow::on_startButton_clicked()
         mins = 0;
         ui->textBrowser->clear();
         game = new GameEngine(plateValue.toLong(), NUMBER_OF_POLES, ui->gameInterface);
-        minMoves = pow(2,plateValue.toInt())-1;
+        minMoves = pow(2,plateValue.toLong())-1;
         game -> drawPoles(scene_);
         timer.start(1000);
         connect(&timer, &QTimer::timeout, this, &MainWindow::tick);
@@ -125,6 +129,8 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::endGame()
 {
+    ui->lcdSec->display(secs);
+    ui->lcdMin->display(mins);
     timer.stop();
     QList<QAbstractButton *> list  = ui->buttonGroup->buttons();
     foreach ( QAbstractButton *pButton, list){
@@ -133,11 +139,14 @@ void MainWindow::endGame()
     QMessageBox msgBox;
     QString sMins = QString::number(mins);
     QString sSecs = QString::number(secs);
-    msgBox.setToolTip("You won!");
-    msgBox.setText("You won!\n Your time: " + sMins + " minutes " + sSecs + "seconds");
-    QAbstractButton* answer = msgBox.addButton(tr("Quit"), QMessageBox::YesRole);
+    msgBox.setWindowTitle("You won!");
+    msgBox.setText("Your time: " + sMins + " minutes " + sSecs + "seconds");
+    QAbstractButton* yButton = msgBox.addButton("Check moves made", QMessageBox::YesRole);
+    msgBox.addButton("Quit?", QMessageBox::NoRole);
     msgBox.exec();
-    if(answer == msgBox.clickedButton()){
+    if(msgBox.clickedButton() == yButton){
+        msgBox.close();
+    }else{
         msgBox.close();
         ui->quitButton->click();
     }
@@ -145,35 +154,33 @@ void MainWindow::endGame()
 
 void MainWindow::tick()
 {
-    if(ui->autoCheck->isChecked()){
-        if(secs!=60){
-            ++secs;
-            ui->lcdSec->display(secs);
-            autoMove();
-        }else{
-            secs = 0;
-            ui->lcdSec->display(secs);
-            ++mins;
-            ui->lcdMin->display(mins);
-            autoMove();
-        }  
-    }else{
-        if(secs!=60){
-            ui->lcdSec->display(secs);
-            ++secs;
-        }else{
-            secs = 0;
-            ui->lcdSec->display(secs);
-            ++mins;
-            ui->lcdMin->display(mins);
-        }
+    if(automated){
+        autoMove();
     }
-
+    if(secs!=60){
+        ++secs;
+    }else{
+        secs = 0;
+        ++mins;
+    }
+    ui->lcdSec->display(secs);
+    ui->lcdMin->display(mins);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
-    std::vector<Qt::Key>::iterator it = std::find(keys.begin(),keys.end(),event->key());
-    int index = it-keys.begin();
-    QList<QAbstractButton *> buttonList  = ui->buttonGroup->buttons();
-    buttonList.at(index)->click();
+    if(!automated){
+        std::vector<Qt::Key>::iterator it = std::find(keys.begin(), keys.end(), event->key());
+        if(it != keys.end()){
+            int index = it-keys.begin();
+            QList<QAbstractButton *> buttonList  = ui->buttonGroup->buttons();
+            buttonList.at(index)->click();
+        }
+    }
+}
+
+void MainWindow::on_autoGame_clicked()
+{
+    automated = true;
+    ui->autoGameLabel->show();
+    on_startButton_clicked();
 }

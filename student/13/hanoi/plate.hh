@@ -6,18 +6,17 @@
 #include <QRectF>
 #include <memory>
 #include <QPainter>
+#include <QStyleOptionGraphicsItem>
 
 class Plate:public QGraphicsItem
 {
 public:
-    explicit Plate(int size, int x, int y, int width, int height, QWidget *parent = nullptr);
-    explicit Plate(int size,QPointF location, QSize plateSize, QWidget* parent = nullptr);
+    explicit Plate(int size, int x, int y, int width, int height, QWidget *parent = nullptr, QColor color = Qt::red);
+    explicit Plate(int size,QPointF location, QSize plateSize, QWidget* parent = nullptr, QColor color = Qt::red);
     ~Plate() override;
     int getSize();
-
     QRectF boundingRect() const override;
-
-    QWidget* getParent();
+    void setColor(QColor color);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
 
 private:
@@ -28,7 +27,8 @@ private:
     int width_;
     int height_;
     QWidget* parent_;
-    QBrush* brush;
+    QColor color_;
+
 };
 
 #endif // PLATE_HH
