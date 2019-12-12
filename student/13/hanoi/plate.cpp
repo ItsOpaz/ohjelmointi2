@@ -2,12 +2,6 @@
 #include <QColor>
 #include <QWidget>
 
-Plate::Plate(int size, int x, int y, int width, int height, QWidget *parent, QColor color)
-: size_(size), x_(x), y_(y), width_(width), height_(height), parent_(parent), color_(color)
-
-{
-  frame = new QRectF(x, y, width, height);
-}
 
 Plate::Plate(int size, QPointF location, QSize plateSize, QWidget *parent, QColor color)
    :size_(size),

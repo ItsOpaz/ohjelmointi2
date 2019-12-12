@@ -72,5 +72,8 @@ bool GameEngine::gameEnd()
 
 bool GameEngine::isViable(int a, int b)
 {
-    return(poles[a]->plates.back()->getSize() < poles[b]->plates.back()->getSize());
+    if(poles[b]->plates.empty()){
+        return true;
+    }else{
+            return(poles[a]->plates.back()->getSize() < poles[b]->plates.back()->getSize());
 }
