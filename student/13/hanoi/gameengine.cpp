@@ -22,20 +22,14 @@ GameEngine::GameEngine(int maxPlates, int amountOfPoles, QWidget *widget)
                 Plate* newPlate = new Plate(j, blockOffset, QSize(grid, blockSize), parent);
                 pole->addPlate(newPlate);
             }
-
         }
         poles.push_back(pole);
     }
-
 }
 
 GameEngine::~GameEngine()
 {
-    while(!poles.empty()){
-        Pole* toDelete = poles.back();
-        poles.pop_back();
-        delete toDelete;
-    }
+
 }
 
 void GameEngine::drawPoles(QGraphicsScene *scene)

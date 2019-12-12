@@ -27,6 +27,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    while(!game->poles.empty()){
+        Pole* toDeletePole = game->poles.back();
+        game->poles.pop_back();
+        while(!toDeletePole->plates.empty()){
+            Plate* toDeletePlate = toDeletePole->plates.back();
+            toDeletePole->plates.pop_back();
+            delete toDeletePlate;
+        }
+        delete toDeletePole;
+    }
+    delete game;
     delete ui;
 }
 

@@ -12,11 +12,6 @@ Pole::Pole(int maxPlates,int poleID, QPoint location, QWidget *parent)
 
 Pole::~Pole()
 {
-    while(!plates.empty()){
-        Plate* toDelete = plates.back();
-        plates.pop_back();
-        delete toDelete;
-    }
     delete stick;
 }
 
