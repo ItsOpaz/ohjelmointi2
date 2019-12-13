@@ -1,0 +1,28 @@
+Hanoin Torni
+
+Pelissä tarkoitus on siirtää levypino toiseen tankoon kolmatta apuna käyttäen
+samaan järjestykseen.
+- Isompaa levyä ei saa siirtää pienemmän päälle
+- vain yhtä levyä voi siirtää kerrallaan.
+
+Jos käyttäjä yrittää tehdä laittoman siirron, se estetään ja käyttäjälle
+ilmoitetaan laittomasta siirrosta.
+
+Käyttäjän pitää syöttää lukuarvo (yli 1) "Set amount of plates:" kenttään, tämän
+jälkeen käyttäjä voi valita automaattisen pelin (Automated game) tai aloittaa
+normaalin pelin (Start game). Pelin voi sulkea missä vain vaiheessa sulkemalla
+ikkunan tai painamalla Quit-nappulaa.
+- Automaattinen peli päättyy aina viimeiseen (siniseen) tolppaan
+
+Siirtoja voi tehdä painonappien avulla tai näppäimistön Q, W, E, R, T, Y -näppäimillä.
+Painonappien yläpuolella on kerrottu, mikä näppäin vastaa mitäkin painonappia.
+- Levyjen väri muuttuu riippuen siitä missä tolpassa ne ovat.
+
+Käyttäjälle näytetään tehtyjen siirtojen lukumäärä sekä se, miten kaukana
+lukumäärä on siirtojen minimimäärästä.
+
+Tehtyjä siirtoja voi seurata pelin aikana. Pelin loputtua käyttäjä voi vielä
+tarkastella pelihistoriaa.
+
+Käyttäjä voi seurata ajankäyttöä pelin aikana. Kun koko pino on siirretty, peli
+loppuu ja käyttäjälle näytetää pelin suorittamiseen kulunut aika.

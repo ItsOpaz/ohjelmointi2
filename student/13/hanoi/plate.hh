@@ -10,17 +10,17 @@
 #include <QWidget>
 #include <QGraphicsItem>
 #include <QRectF>
-#include <memory>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
+#include <QColor>
 
 class Plate:public QGraphicsItem
 {
 public:
-    explicit Plate(int size,QPointF location, QSize plateSize, QWidget* parent = nullptr, QColor color = Qt::red);
+    explicit Plate(int number, QPointF location, QSize plateSize, QWidget* parent = nullptr, QColor color = Qt::red);
     //deletes boundingRect related to plate
     ~Plate() override;
-    int getSize();
+    int getNumber();
     //self-descriptive getters and setters
     QRectF boundingRect() const override;
     void setColor(QColor color);
@@ -28,7 +28,8 @@ public:
 
 private:
     QRectF* frame;
-    int size_;
+    //number is used to check if plate can be moved on top of other plate
+    int number_;
     int x_;
     int y_;
     int width_;

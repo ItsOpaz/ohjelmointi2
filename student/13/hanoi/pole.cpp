@@ -1,13 +1,11 @@
 #include "pole.hh"
 #include "gameengine.hh"
-#include <QPointF>
-#include <QWidget>
-#include <QPainter>
 
-Pole::Pole(int maxPlates,int poleID, QPoint location, QWidget *parent)
-    :maxPlates_(maxPlates), id(poleID), location_(location), parent(parent)
+Pole::Pole(int poleID, QPoint location, QWidget *parent)
+    : id(poleID), location_(location), parent(parent)
 {
-    stick = new QRectF(location, QSize(POLE_WIDTH, static_cast<int>(parent->height()) * 0.9));
+    //height is multiplied by 0.8 for better visuals
+    stick = new QRectF(location, QSize(POLE_WIDTH, parent->height()*0.8));
 }
 
 Pole::~Pole()
@@ -30,22 +28,20 @@ bool Pole::movePlate(Pole* target)
     }
     Plate* plateToMove = plates.back();
     if(!target->plates.empty()){
-        if (plateToMove->getSize() > target->plates.back()->getSize()) {
+        if (plateToMove->getNumber() > target->plates.back()->getNumber()) {
             return false;
         }
     }
-    qreal dy = (this->plates.size()-1)*plateToMove->boundingRect().height() - (target->plates.size())*plateToMove->boundingRect().height();
-    qreal dx = target->boundingRect().x() - boundingRect().x();
+    plates.pop_back();
+    //y difference is plate position minus target poles top plate position
+    qreal dy = (plateToMove->boundingRect().height() * (plates.size())
+                - plateToMove->boundingRect().height() * target->plates.size());
+    //x difference is distance between poles
+    qreal dx = target->location_.rx() - location_.rx();
     plateToMove->moveBy(dx, dy);
     plateToMove->setParentItem(target);
     target->addPlate(plateToMove);
-    this->plates.pop_back();
     return true;
-}
-
-std::vector<Plate *> Pole::getPlates()
-{
-    return plates;
 }
 
 QRectF Pole::boundingRect() const

@@ -5,17 +5,20 @@
  * ---------------
  * Olli Pettersson, olli.pettersson@tuni.fi, 283651
  * */
-
 #ifndef MAINWINDOW_HH
 #define MAINWINDOW_HH
 
 #include <QMainWindow>
-#include <QGraphicsScene>
 #include <QWidget>
 #include <QTimer>
-#include "gameengine.hh"
-#include "pole.hh"
 #include <QListWidget>
+#include <QString>
+#include <QtCore>
+#include <QtGui>
+#include <QString>
+#include <cmath>
+#include <QMessageBox>
+#include "gameengine.hh"
 
 namespace Ui {
 class MainWindow;
@@ -59,12 +62,18 @@ private:
     const int BORDER_RIGHT = 680;
     const int left_margin = 10;
     const int top_margin = 270;
+    const int TICK_SPEED = 1000;
     int autoCounter = 0;
     int secs = 0;
     int mins = 0;
     int minMoves;
     int moveCounter = 0;
     bool automated = false;
+    int pole1Id = 0;
+    int pole2Id = 1;
+    int pole3Id = 2;
+    int autoGameOrder1 = 1;
+    int autoGameOrder2 = 0;
 };
 
 #endif // MAINWINDOW_HH

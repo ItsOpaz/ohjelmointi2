@@ -1,12 +1,9 @@
 #include "plate.hh"
-#include <QColor>
-#include <QWidget>
 
-
-Plate::Plate(int size, QPointF location, QSize plateSize, QWidget *parent, QColor color)
-   :size_(size),
-    x_(static_cast<int>(location.rx())),
-    y_(static_cast<int>(location.ry())),
+Plate::Plate(int number, QPointF location, QSize plateSize, QWidget *parent, QColor color)
+   :number_(number),
+    x_(location.rx()),
+    y_(location.ry()),
     width_(plateSize.rwidth()),
     height_(plateSize.rheight()),
     parent_(parent),
@@ -20,9 +17,9 @@ Plate::~Plate()
     delete frame;
 }
 
-int Plate::getSize()
+int Plate::getNumber()
 {
-    return size_;
+    return number_;
 }
 
 QRectF Plate::boundingRect() const

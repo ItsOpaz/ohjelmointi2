@@ -1,31 +1,32 @@
 #include "gameengine.hh"
-#include <QGraphicsItem>
-#include <vector>
-#include <iostream>
 
-GameEngine::GameEngine(int maxPlates, int amountOfPoles, QWidget *widget)
-    :maxPlates(maxPlates), amountOfPoles(amountOfPoles), parent(widget)
+GameEngine::GameEngine(int amountOfPlates, int amountOfPoles, QWidget *widget)
+    :amountOfPlates_(amountOfPlates), amountOfPoles_(amountOfPoles), parent(widget)
 {
-    int spacing = parent->width()/amountOfPoles+1;
-    for (int i = 0; i < amountOfPoles; ++i) {
-        QPoint polePoint(i*spacing, -parent->geometry().height());
-        Pole* pole = new Pole(maxPlates, i, polePoint, parent);
+    int spacing = parent->width()/amountOfPoles_;
+    for (int i = 0; i < amountOfPoles_; ++i) {
+        //set pole location in relation to game interface
+        QPoint polePoint(i*spacing, 0);
+        Pole* pole = new Pole(i, polePoint, parent);
+        //all plates are added to first pole
         if (i == 0) {
-            for (int j = maxPlates; j > 0; j--) {
-                int blockSize = pole->boundingRect().height()/maxPlates;
-                int grid = j*blockSize;
-                QPoint blockOffset(
-                        polePoint.x() - grid/2
-                            + static_cast<int>(pole->boundingRect().width()/2)
-                            , polePoint.y() + pole->boundingRect().height() -(maxPlates+1)*blockSize + grid);
-                Plate* newPlate = new Plate(j, blockOffset, QSize(grid, blockSize), parent);
+            //plates are made from bottom to top
+            for (int j = amountOfPlates_; j > 0; j--) {
+                //plate height in relation to pole (ratio is used for better visuals)
+                int plateHeight = pole->boundingRect().height()/amountOfPlates_;
+                //plate width is set so top plate is square
+                int plateWidth = j*plateHeight;
+                //set plate to middle of pole and on top of previous plate
+                QPoint plateLocation(
+                        polePoint.x() - plateWidth/2
+                            + pole->boundingRect().width() / 2
+                            , pole->boundingRect().height() - (amountOfPlates - j + 1) * plateHeight);
+                Plate* newPlate = new Plate(j, plateLocation, QSize(plateWidth, plateHeight), nullptr);
                 pole->addPlate(newPlate);
             }
-
         }
         poles.push_back(pole);
     }
-
 }
 
 GameEngine::~GameEngine()
@@ -40,21 +41,23 @@ void GameEngine::drawPoles(QGraphicsScene *scene)
     }
 }
 
-bool GameEngine::makeMove(int id)
+bool GameEngine::makeMove(int buttonId)
 {
-    switch (id) {
+    //switch function is used to connect correct button to corresponding movePlate method
+    //ids are used because switch can't take string as parameter switch is better than 6 if statements
+    switch (buttonId) {
     case -2:
-        return poles.at(0)->movePlate(poles.at(1));
+        return poles[0]->movePlate(poles[1]);
     case -3:
-        return poles.at(0)->movePlate(poles.at(2));
+        return poles[0]->movePlate(poles[2]);
     case -4:
-        return poles.at(1)->movePlate(poles.at(0));
+        return poles[1]->movePlate(poles[0]);
     case -5:
-        return poles.at(1)->movePlate(poles.at(2));
+        return poles[1]->movePlate(poles[2]);
     case -6:
-        return poles.at(2)->movePlate(poles.at(0));
+        return poles[2]->movePlate(poles[0]);
     case -7:
-        return poles.at(2)->movePlate(poles.at(1));
+        return poles[2]->movePlate(poles[1]);
     default:
         return false;
     }
@@ -63,8 +66,8 @@ bool GameEngine::makeMove(int id)
 bool GameEngine::gameEnd()
 {
     for(int i = 1; i<=2;++i){
-        int tmp = poles.at(i)->getPlates().size();
-        if(tmp==maxPlates){
+        int tmp = poles[i]->plates.size();
+        if(tmp==amountOfPlates_){
             return true;
         }
     }return false;
@@ -72,8 +75,11 @@ bool GameEngine::gameEnd()
 
 bool GameEngine::isViable(int a, int b)
 {
-    if(poles[b]->plates.empty()){
+    if(poles[a]->plates.empty()){
+        return false;
+    }else if(poles[b]->plates.empty()){
         return true;
     }else{
-            return(poles[a]->plates.back()->getSize() < poles[b]->plates.back()->getSize());
+        return(poles[a]->plates.back()->getNumber() < poles[b]->plates.back()->getNumber());
+    }
 }
