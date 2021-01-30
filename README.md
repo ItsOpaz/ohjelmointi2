@@ -1,6 +1,5 @@
-Ohjelmointi 2: Perusteet / Programming 2: Basics
+Programming 2: Basics
 
-Syksy/Fall 2019
+Fall 2019
 
-Tämä repo sisältää opiskelijalle jaettavat materiaalit.
-This repository contains materials for students.
+Folder Student contains the answers to the course assignments
